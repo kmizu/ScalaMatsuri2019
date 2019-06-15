@@ -105,9 +105,7 @@ Scalaと構文解析アルゴリズムが大好きなプログラマです
 - DOT is abbreviation of *D*ependent *O*bject *T*ypes
 - Core calculus:
   - Essense of a programming language
-    - Abstract Syntax
-    - Typing Rule
-    - Semantics
+    - Abstract Syntax, Typing Rules, Semantics
   - Used to prove the behavior of the language
  
 ***
@@ -223,7 +221,6 @@ V ::= 0 | 1  // value
 ------------   ------------
 Γ⊢ 0 : int    Γ⊢ 1 : int    ...
 
-
 Γ⊢ t1 : int  Γ⊢ t2 : int
 ----------------------------
 Γ⊢ t1 + t2 : int
@@ -233,8 +230,6 @@ V ::= 0 | 1  // value
 
 - Γは**型環境**と呼ばれます
 - ⊢は**型判断**と呼ばれます
-
-
 
 ---
 
@@ -263,15 +258,12 @@ t1 + t2 → t1' + t2'
 
 
 - Union and intersection types
-  - `e: Int | String`
-  - `e: Number & Serializable`
+  - `e: Int | String`, `e: Number & Serializable`
 - Type members
   - `e: Any { type M }`
 - Path-dependent types
   - `e: v.x` (`v` is constant)
 - Combination of subtyping and these types
-- No parametric polymorphism
-  - it can be encoded in DOT
 
 ***
 
@@ -328,10 +320,8 @@ t1 + t2 → t1' + t2'
   - A mechanized proof in Coq exists:
     - https://github.com/namin/dot
 - Typing in DOT is undecidable
-  - not so good
 - Typing in many practical programming language is undedidable
   - Scala, Java, C++, TypeScript, Haskell(?), etc.
-
 
 ***
 

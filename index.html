@@ -70,6 +70,19 @@ Scalaと構文解析アルゴリズムが大好きなプログラマです
 
 ---
 
+### Purpose
+
+- Introduce the notaion of **core calculus**
+  - abstract syntax, typing rule, operational semantics
+- Introduce DOT calculus informally
+- Show properties of DOT
+
+***
+
+- 核計算の概念、DOT計算の紹介などが目的です
+
+---
+
 ### Scala
 
 - Designed by Martin Odersky in 2003
@@ -180,7 +193,7 @@ Scalaと構文解析アルゴリズムが大好きなプログラマです
   - very simple calculation
 
 ```
-E ::= P ("+' S P | "-" S P)
+E ::= P ("+" S P)*
 P ::= "(" S E ")" S | I S
 I ::= "0" | "1"
 S ::= ("\t" | " " | "\r" | "\n)*
@@ -193,7 +206,8 @@ S ::= ("\t" | " " | "\r" | "\n)*
 ### Abstract Syntax
 
 - Drop such extra information from concrete syntax
-- It is important to define *value*
+- Important to define *value*
+  - *value* is a term which cannot be evaluated
 - An example of abstract syntax in EBNF-like notation
   - very simple calculation
   - `V` is value
@@ -211,7 +225,8 @@ V ::= 0 | 1  // value
 ### Typing Rules
 
 - Rules for typing terms
-- Γ is called as **typing environments**
+- Γ(gamma) is called as **typing environments**
+  - mappings from variable to type
 - ⊢ is called as **typing judgements**
 - An example:
   - very simple calculation
@@ -274,7 +289,7 @@ t1 + t2 → t1' + t2'
 
 ### Syntax of DOT
 
-- citation in https://github.com/namin/dot
+- Citation from https://github.com/namin/dot
 
 <img src="DOT-syntax.png">
 
@@ -282,7 +297,7 @@ t1 + t2 → t1' + t2'
 
 ### Subtyping in DOT (1)
 
-- citation in https://github.com/namin/dot
+- Citation from https://github.com/namin/dot
 
 
 <img src="DOT-subtyping1.png">
@@ -291,7 +306,7 @@ t1 + t2 → t1' + t2'
 
 ### Subtyping in DOT (2)
 
-- citation in https://github.com/namin/dot
+- Citation from https://github.com/namin/dot
 
 <img src="DOT-subtyping2.png">
 
@@ -299,7 +314,7 @@ t1 + t2 → t1' + t2'
 
 ## Typing Rules of DOT
 
-- citation in https://github.com/namin/dot
+- Citation from https://github.com/namin/dot
 
 <img src="DOT-typing.png">
 
@@ -307,7 +322,7 @@ t1 + t2 → t1' + t2'
 
 ### Oerational Semantics of DOT
 
-- citation in https://github.com/namin/dot
+- Citation from https://github.com/namin/dot
 
 <img src="DOT-operational-semantics.png">
 
@@ -317,16 +332,21 @@ t1 + t2 → t1' + t2'
 
 - DOT type system is sound
   - soundness is very important property
-  - A mechanized proof in Coq exists:
+    - typed terms don't do undefined behavior
+  - a mechanized proof in Coq exists:
     - https://github.com/namin/dot
 - Typing in DOT is undecidable
-- Typing in many practical programming languages is undedidable
-  - Scala, Java, C++, TypeScript, Haskell(?), etc.
+  - typing algorithm for all terms doesn't exist
+    or such algorithm may not terminate
+  - DOT can be encoded to `F<:`, typing is also undecidable
+  - It's not so problematic 
+    - typing in many programming languages is undecidable
+    - Scala, Java, C++, TypeScript, etc.
 
 ***
 
 - DOTの型システムは健全です（Coqで証明されています）
-- DOTの型付けは決定不能です（DOTはFsubにエンコード可能）
+- DOTの型付けは決定不能です（DOTは`F<:`にエンコード可能）
 
 ---
 

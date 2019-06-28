@@ -222,6 +222,18 @@ V ::= 0 | 1  // value
 
 ---
 
+### Abstract Syntax - Intuition
+
+```scala
+sealed trait E
+sealed trait V extends E
+case object Zero extends V
+case object One extends V
+case class Plus(t1: E, t2: E) extends E
+```
+
+---
+
 ### Typing Rules
 
 - Rules for typing terms
@@ -233,12 +245,12 @@ V ::= 0 | 1  // value
 
 
 ```
-------------   ------------
-Γ⊢ 0 : int    Γ⊢ 1 : int    ...
+-----------------------------
+Γ⊢ 0 : Int  Γ⊢ 1 : Int ...
 
-Γ⊢ t1 : int  Γ⊢ t2 : int
+Γ⊢ t1 : Int Γ⊢ t2 : Int
 ----------------------------
-Γ⊢ t1 + t2 : int
+Γ⊢ t1 + t2 : Int
 ```
 
 ***
@@ -248,20 +260,49 @@ V ::= 0 | 1  // value
 
 ---
 
+### Typing Rule - Intuition
+
+```scala
+def ⊢(t, Γ) = t match {
+  case Zero => Int
+  case 1 => Int
+  case (t1 `+` t2`) =>
+    (⊢(t1, Γ), ⊢(t2, Γ)) match {
+      case  (Int, Int) => Int
+      case _ => TypeError
+    }
+}
+```
+
+---
+
 ### Operational Semantics
 
 - Rules for evaluating terms
 - It can be seen as a naive interpreter
 
 ```
-t1 → t1'  t2 → t2'
----------------------
-t1 + t2 → t1' + t2'
+t1 → `t1`  t2 → `t2`
+-------------------------
+t1 `+` t2 → `t1` + `t2`
 ```
 
 ***
 
 - ナイーヴなインタプリタのようなものと見ることができます
+
+---
+
+### Operational Semantics - Intuition
+
+```scala
+def →(t) = t match {
+  case (t: V) => t
+  case (t1 `+` t2) =>
+    val (`t1`, `t2`) =  (→(t1), →(t2)) 
+    `t1` + `t2`
+}
+```
 
 ---
 
@@ -336,17 +377,15 @@ t1 + t2 → t1' + t2'
   - a mechanized proof in Coq exists:
     - https://github.com/namin/dot
 - Typing in DOT is undecidable
-  - typing algorithm for all terms doesn't exist
-    or such algorithm may not terminate
-  - DOT can be encoded to `F<:`, typing is also undecidable
-  - It's not so problematic 
-    - typing in many programming languages is undecidable
+  - typing algorithm may not terminate
+  - DOT can encode  `F<:`, typing is also undecidable
+  - typing in many programming languages is undecidable
     - Scala, Java, C++, TypeScript, etc.
 
 ***
 
-- DOTの型システムは健全です（Coqで証明されています）
-- DOTの型付けは決定不能です（DOTは`F<:`にエンコード可能）
+- DOTの型システムは健全です
+- DOTの型付けは決定不能です
 
 ---
 

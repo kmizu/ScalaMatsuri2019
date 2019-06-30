@@ -199,6 +199,8 @@ I ::= "0" | "1"
 S ::= ("\t" | " " | "\r" | "\n)*
 ```
 
+***
+
 - 具象構文は余計な情報を含んでいます
 
 ---
@@ -216,6 +218,8 @@ S ::= ("\t" | " " | "\r" | "\n)*
 E ::= E + E | V
 V ::= 0 | 1  // value
 ```
+
+***
 
 - 抽象構文は具象構文から余計な情報を除いたものです
 - *値*を定義するのが重要です 
@@ -237,9 +241,9 @@ case class Plus(t1: E, t2: E) extends E
 ### Typing Rules
 
 - Rules for typing terms
-- Γ(gamma) is called as **typing environments**
+- Γ(gamma) is called as **typing environment**
   - mappings from variable to type
-- ⊢ is called as **typing judgements**
+- ⊢ is called as **typing judgement**
 - An example:
   - very simple calculation
 
@@ -316,7 +320,7 @@ def →(t) = t match {
 - Union and intersection types
   - `e: Int | String`, `e: Number & Serializable`
 - Type members
-  - `e: Any { type M }`
+  - `e: { type M }`
 - Path-dependent types
   - `e: v.x` (`v` is constant)
 - Combination of subtyping and these types
@@ -378,8 +382,8 @@ def →(t) = t match {
     - https://github.com/namin/dot
 - Typing in DOT is undecidable
   - typing algorithm may not terminate
-  - DOT can encode  `F<:`, typing is also undecidable
-  - typing in many programming languages is undecidable
+  - DOT can encode  `F<:`, which typing is also undecidable
+  - typing in many programming languages is also undecidable
     - Scala, Java, C++, TypeScript, etc.
 
 ***
@@ -395,6 +399,11 @@ def →(t) = t match {
 - DOT is core calculus of Scala 3
 - Type system of DOT is sound
 - Typing in DOT is undecidable (!)
+
+***
+
+- DOTはScala 3の核計算です
+- DOTの型システムは健全ですが、型付けは決定不能です
 
 </script></section>
 
